@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { supabase } from './supabaseClient'
+import Avatar from './Avatar'
 
 export default function Account({ session }) {
   const [loading, setLoading] = useState(true)
@@ -71,6 +72,14 @@ export default function Account({ session }) {
         'Saving ...'
       ) : (
         <form onSubmit={updateProfile} className="form-widget">
+          <Avatar
+            url={avatar_url}
+            size={150}
+            onUpload={(url) => {
+              setAvatarUrl(url)
+              updateProfile({ username, website, avatar_url: url })
+            }}
+          />
           <div>Email: {session.user.email}</div>
           <div>
             <label htmlFor="username">Name</label>
